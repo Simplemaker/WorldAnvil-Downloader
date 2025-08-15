@@ -1,9 +1,5 @@
-// Create three buttons.
-
-import ZipBackend from "./zipBackend";
 import alpha from "./AlphaScraper";
 import {BetaSaver} from "./beta";
-import {betaReader} from "./betaReader";
 import {Gamma} from "./gamma/gamma";
 
 function createButton (label: string, callback: () => any) {
