@@ -1,7 +1,10 @@
 
 export function pathTail(path: string) {
-    const parts = path.split('/')
-    return parts[parts.length - 1];
+    const parse = /([^\/]+)\/?(\.html)/.exec(path);
+    if (!parse || parse.length < 3) {
+        throw new Error(`Failed to find file extension of ${path}`);
+    }
+    return parse[1] + parse[2]
 }
 
 export function pathExtension(path: string) {
