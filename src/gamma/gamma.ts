@@ -6,6 +6,7 @@ import {contentFilter} from "./documentFilters/contentFilter";
 import {DocumentFilter} from "./documentFilters/documentFilter";
 import {linkRenameFilter} from "./documentFilters/linkRenameFilter";
 import {getBreadthFirstPageOrder} from "./pageOrder";
+import targetedRemovalFilter from "./documentFilters/targetedRemovalFilter";
 
 
 export class Gamma implements FileBackend {
@@ -46,7 +47,7 @@ export class Gamma implements FileBackend {
         })
 
         // Save documents
-        const documentFilters: DocumentFilter[] = [linkRenameFilter(this.pathRename), contentFilter];
+        const documentFilters: DocumentFilter[] = [linkRenameFilter(this.pathRename), contentFilter, targetedRemovalFilter];
         for (const [path, document] of Object.entries(this.documents)) {
             try {
                 const newBody = documentFilters

@@ -12,7 +12,6 @@ export function linkRenameFilter(pathRename: Record<string, string>) {
             if (softMatch){
                 link.href = softMatch.value
             } else {
-                console.log(`Broken link: ${link.href}`)
                 link.href = ''
             }
         })
