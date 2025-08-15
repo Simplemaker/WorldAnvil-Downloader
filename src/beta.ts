@@ -1,17 +1,6 @@
 import {FileBackend} from "./fileBackend";
+import { arrayBufferToBase64Async } from "./arrayBufferUtils";
 
-function arrayBufferToBase64Async(buffer: ArrayBuffer): Promise<string> {
-    return new Promise((resolve, reject) => {
-        const blob = new Blob([buffer]);
-        const reader = new FileReader();
-        reader.onload = () => {
-            const dataUrl = reader.result as string;
-            resolve(dataUrl.split(',')[1]);
-        };
-        reader.onerror = reject;
-        reader.readAsDataURL(blob);
-    });
-}
 
 export class BetaSaver implements FileBackend{
     data: [string, ArrayBuffer][]
@@ -31,7 +20,15 @@ export class BetaSaver implements FileBackend{
             out.push([path, await arrayBufferToBase64Async(data)])
         }
 
-        const outString = JSON.stringify(out)
-        localStorage.setItem('beta', outString)
+        const outString = JSON.stringify(out);
+        const blob = new Blob([outString], {type: 'application/json'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'beta.json';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
     };
 }

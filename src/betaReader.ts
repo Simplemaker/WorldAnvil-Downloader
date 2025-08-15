@@ -1,12 +1,8 @@
 import {FileBackend} from "./fileBackend";
+import { base64ToArrayBufferAsync } from "./arrayBufferUtils";
 
-async function base64ToArrayBufferAsync(base64: string) {
-    const res = await fetch(`data:application/octet-stream;base64,${base64}`);
-    return await res.arrayBuffer();
-}
 
-export async function betaReader(backend: FileBackend) {
-    const stringData = localStorage.beta
+export async function betaReader(stringData: string, backend: FileBackend) {
     if (!stringData) {
         throw new Error('Beta must be saved before reading.')
     }

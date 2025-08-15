@@ -4,6 +4,7 @@ import ZipBackend from "./zipBackend";
 import alpha from "./AlphaScraper";
 import {BetaSaver} from "./beta";
 import {betaReader} from "./betaReader";
+import {Gamma} from "./gamma/gamma";
 
 function createButton (label: string, callback: () => any) {
     const b = document.createElement('button')
@@ -17,10 +18,7 @@ createButton('Alpha -> Beta', ()=>{
     alpha(new BetaSaver())
 })
 
-// Beta (read) -> Gamma
-createButton('Beta -> Gamma', ()=>{
-    betaReader(new ZipBackend())
-})
-
 // Alpha -> Gamma
-
+createButton('Alpha -> Gamma', ()=>{
+    alpha(new Gamma())
+})

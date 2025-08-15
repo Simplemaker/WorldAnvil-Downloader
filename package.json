@@ -4,18 +4,22 @@
   "description": "Downloads WorldAnvil Wikis as Ebooks with images and ordering",
   "main": "index.js",
   "scripts": {
-    "build": "webpack"
+    "build": "webpack",
+    "run": "tsx src/gamma/gammaLocal.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "ts-loader": "^9.5.2",
+    "tsx": "^4.20.4",
     "typescript": "^5.9.2",
     "webpack": "^5.101.2",
     "webpack-cli": "^6.0.1"
   },
   "dependencies": {
+    "@types/jsdom": "^21.1.7",
+    "jsdom": "^26.1.0",
     "jszip": "^3.10.1"
   }
 }
