@@ -8,6 +8,11 @@ export default async function alpha(backend: FileBackend) {
     const visited = new Set();
 
     async function scrape(url: string) {
+        // first remove hash location
+        if (url.includes('#')) {
+            url = url.split('#')[0]
+        }
+
         if (visited.has(url)) return;
         visited.add(url);
         console.log(`Scraping: ${url}`);
