@@ -15,7 +15,7 @@ export default async function alpha(backend: FileBackend) {
         const res = await fetch(url, {credentials: 'include'});
         const html = await res.text();
 
-        backend.onData(url, new TextEncoder().encode(html).buffer)
+        backend.onData(url + '.html', new TextEncoder().encode(html).buffer)
 
         const parser = new DOMParser();
         const doc = parser.parseFromString(html, 'text/html');
