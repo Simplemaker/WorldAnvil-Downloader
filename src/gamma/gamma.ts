@@ -4,6 +4,7 @@ import {pathExtension, pathTail} from "./pathUtils";
 import {randomUuid} from "./uuid";
 import {contentFilter} from "./documentFilters/contentFilter";
 import {DocumentFilter} from "./documentFilters/documentFilter";
+import {linkRenameFilter} from "./documentFilters/linkRenameFilter";
 
 
 export class Gamma implements FileBackend {
@@ -33,10 +34,8 @@ export class Gamma implements FileBackend {
     };
 
     async onComplete() {
-        console.log(this.pathRename)
-
         // Save documents
-        const documentFilters: DocumentFilter[] = [contentFilter];
+        const documentFilters: DocumentFilter[] = [linkRenameFilter(this.pathRename), contentFilter];
         for (const [path, document] of Object.entries(this.documents)) {
             try {
                 const newBody = documentFilters
