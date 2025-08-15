@@ -5,6 +5,7 @@ import {randomUuid} from "./uuid";
 import {contentFilter} from "./documentFilters/contentFilter";
 import {DocumentFilter} from "./documentFilters/documentFilter";
 import {linkRenameFilter} from "./documentFilters/linkRenameFilter";
+import {getBreadthFirstPageOrder} from "./pageOrder";
 
 
 export class Gamma implements FileBackend {
@@ -12,6 +13,7 @@ export class Gamma implements FileBackend {
     documents: Record<string, Document>
     assets: Record<string, ArrayBuffer>
     pathRename: Record<string, string>;
+    rootPath?: string;
 
     constructor() {
         this.pageOrder = [];
@@ -23,9 +25,10 @@ export class Gamma implements FileBackend {
     onData(path: string, data: ArrayBuffer) {
         console.log(path)
         if (path.includes('.html')) {
-            this.pageOrder.push(path)
+            if (!this.rootPath) {
+                this.rootPath = path;
+            }
             this.documents[path] = this.parseHtml(arrayBufferToString(data))
-            this.pathRename[path] = `${this.pageOrder.length.toString().padStart(4, '0')} - ${pathTail(path)}`
         } else {
             // It's an asset
             this.assets[path] = data;
@@ -34,6 +37,14 @@ export class Gamma implements FileBackend {
     };
 
     async onComplete() {
+        // First acquire page order
+        const pageOrder = getBreadthFirstPageOrder(this.documents, this.rootPath as string)
+
+        // Add rename rules for documents
+        pageOrder.forEach((path: string, index: number) => {
+            this.pathRename[path] = `${(index + 1).toString().padStart(4, '0')} - ${pathTail(path)}`
+        })
+
         // Save documents
         const documentFilters: DocumentFilter[] = [linkRenameFilter(this.pathRename), contentFilter];
         for (const [path, document] of Object.entries(this.documents)) {

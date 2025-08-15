@@ -14,3 +14,12 @@ export function pathExtension(path: string) {
     }
     return parse[1]
 }
+
+export function softDictMatch<T>(dict: Record<string, T>, key: string): {key: string, value: T}|undefined {
+    for (const [dictKey, value] of Object.entries(dict)) {
+        if (dictKey.includes(key)) {
+            return {key: dictKey, value}
+        }
+    }
+    return undefined;
+}
