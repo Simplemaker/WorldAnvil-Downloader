@@ -2,6 +2,14 @@
 
 Downloads WorldAnvil Wikis as Ebooks with images and ordering.
 
+## Installation.
+First, install [tampermonkey](https://www.tampermonkey.net/). Then open
+`tampermonkeyScript.user.js` in this repository, and click on the `raw` button. 
+This should open a prompt to install the userscript.
+
+Upon visiting the root page of any WorldAnvil wiki, you should now see a `download` button
+next to the existing login button on the top navigation bar.
+
 ## Code Structure
 This code is separated into an alpha and beta section
 
