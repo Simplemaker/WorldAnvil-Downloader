@@ -1,6 +1,7 @@
 import alpha from "./AlphaScraper";
 import {BetaSaver} from "./beta";
 import {Gamma} from "./gamma/gamma";
+import GammaEpub from "./gamma/gammaEpub";
 
 function createButton (label: string, callback: () => any) {
     const b = document.createElement('button')
@@ -16,5 +17,5 @@ createButton('Alpha -> Beta', ()=>{
 
 // Alpha -> Gamma
 createButton('Alpha -> Gamma', ()=>{
-    alpha(new Gamma())
+    alpha(new GammaEpub('Title', 'Author'))
 })

@@ -1,6 +1,7 @@
 import {FileBackend} from "./fileBackend";
-import { arrayBufferToBase64Async } from "./arrayBufferUtils";
+import {arrayBufferToBase64Async} from "./arrayBufferUtils";
 
+import {download} from "./download";
 
 export class BetaSaver implements FileBackend{
     data: [string, ArrayBuffer][]
@@ -21,14 +22,6 @@ export class BetaSaver implements FileBackend{
         }
 
         const outString = JSON.stringify(out);
-        const blob = new Blob([outString], {type: 'application/json'});
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'beta.json';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
+        download(outString, 'beta.json', 'application/json');
     };
 }
