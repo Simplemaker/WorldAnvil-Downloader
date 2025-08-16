@@ -4,7 +4,7 @@
   "description": "Downloads WorldAnvil Wikis as Ebooks with images and ordering",
   "main": "index.js",
   "scripts": {
-    "build": "webpack",
+    "build": "webpack && node build.js",
     "run": "tsx src/localMain.ts"
   },
   "keywords": [],
