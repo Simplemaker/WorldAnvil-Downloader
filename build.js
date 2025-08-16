@@ -3,7 +3,7 @@ const path = require('path');
 
 const tampermonkeyHeadPath = path.join(__dirname, 'tampermonkeyHead.js');
 const scriptPath = path.join(__dirname, 'dist', 'script.js');
-const outputPath = path.join(__dirname, 'tampermonkeyScript.js');
+const outputPath = path.join(__dirname, 'tampermonkeyScript.user.js');
 
 try {
   const tampermonkeyHead = fs.readFileSync(tampermonkeyHeadPath, 'utf8');
